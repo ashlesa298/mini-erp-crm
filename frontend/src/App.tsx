@@ -13,6 +13,7 @@ import EditCustomer from "./components/pages/customers/EditCustomer";
 import CustomerDetails from "./components/pages/customers/CustomerDetails";
 
 import Products from "./components/pages/products/Products";
+import AddProduct from "./components/pages/products/AddProduct";
 import ProductDetails from "./components/pages/products/ProductDetails";
 
 import "./styles/global.css";
@@ -21,22 +22,34 @@ function App() {
   return (
     <AuthProvider>
       <Routes>
+        {/* Authentication */}
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<Register />} />
 
+        {/* Protected Routes */}
         <Route element={<ProtectedRoute />}>
           <Route element={<DashboardLayout />}>
+            {/* Dashboard */}
             <Route path="/" element={<Dashboard />} />
 
+            {/* Customers */}
             <Route path="/customers" element={<Customers />} />
             <Route path="/customers/add" element={<AddCustomer />} />
-            <Route path="/customers/:id" element={<CustomerDetails />} />
+            <Route
+              path="/customers/:id"
+              element={<CustomerDetails />}
+            />
             <Route
               path="/customers/:id/edit"
               element={<EditCustomer />}
             />
 
+            {/* Products & Inventory */}
             <Route path="/products" element={<Products />} />
+            <Route
+              path="/products/add"
+              element={<AddProduct />}
+            />
             <Route
               path="/products/:id"
               element={<ProductDetails />}
@@ -44,7 +57,11 @@ function App() {
           </Route>
         </Route>
 
-        <Route path="*" element={<Navigate to="/" replace />} />
+        {/* Unknown Routes */}
+        <Route
+          path="*"
+          element={<Navigate to="/" replace />}
+        />
       </Routes>
     </AuthProvider>
   );
